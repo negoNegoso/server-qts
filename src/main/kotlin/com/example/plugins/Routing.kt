@@ -48,7 +48,7 @@ fun Application.configureRouting() {
             call.respondText(divide(a, b).toString()) // Chama a função divide e envia o resultado como texto para o cliente.
         }
 
-        // Rotas da calculadora (POST)
+        // (POST)
         post("/sum") {
             val data = call.receive<Map<String, Any>>()
             val a = data["a"] as? Double ?: 0.0
