@@ -1,6 +1,7 @@
 package com.example.plugins
 
 import io.ktor.server.application.*
+import io.ktor.server.request.receive
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -45,6 +46,35 @@ fun Application.configureRouting() {
             val a = call.parameters["a"]?.toDoubleOrNull() ?: 0.0 // Obtem o valor de "a" da URL e converte para Double.
             val b = call.parameters["b"]?.toDoubleOrNull() ?: 0.0 // Obtem o valor de "b" da URL e converte para Double.
             call.respondText(divide(a, b).toString()) // Chama a função divide e envia o resultado como texto para o cliente.
+        }
+
+        // Rotas da calculadora (POST)
+        post("/sum") {
+            val data = call.receive<Map<String, Any>>()
+            val a = data["a"] as? Double ?: 0.0
+            val b = data["b"] as? Double ?: 0.0
+            call.respondText(sum(a, b).toString())
+        }
+
+        post("/subtract") {
+            val data = call.receive<Map<String, Any>>()
+            val a = data["a"] as? Double ?: 0.0
+            val b = data["b"] as? Double ?: 0.0
+            call.respondText(subtract(a, b).toString())
+        }
+
+        post("/multiply") {
+            val data = call.receive<Map<String, Any>>()
+            val a = data["a"] as? Double ?: 0.0
+            val b = data["b"] as? Double ?: 0.0
+            call.respondText(multiply(a, b).toString())
+        }
+
+        post("/divide") {
+            val data = call.receive<Map<String, Any>>()
+            val a = data["a"] as? Double ?: 0.0
+            val b = data["b"] as? Double ?: 0.0
+            call.respondText(divide(a, b).toString())
         }
     }
 }
